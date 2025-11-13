@@ -239,7 +239,15 @@ def generate_portfolio_tracking_summary(portfolio_performance):
 
 ```bash
 cd portfolio_recommender
-python main.py --user_id U001 --data_path ../data/ --output_path ./results/
+# 原始模型
+python portfolio_recommender/main.py --users-csv "data/profile.csv" --products-csv "data/product.csv" --target-return-csv "data/target_return_from_llm.csv" --output-csv "data/result_1112.csv"
+
+# 漂移模型：
+python portfolio_recommender/main.py --users-csv "data/drift_profile.csv" --products-csv "data/product.csv" --target-return-csv "data/drift_target_return_from_llm.csv" --output-csv "data/dirft_result_1112.csv"
+
+# 可加（推荐8个产品，最小权重0.03，指定编码）
+  --max-products 8 
+  --min-weight 0.03 
 ```
 
 参数说明：
@@ -250,8 +258,8 @@ python main.py --user_id U001 --data_path ../data/ --output_path ./results/
 ### 启动投后陪伴顾问
 
 ```bash
-cd "Explainable agent"
-python agent.py --user_id U001 --portfolio_path ../portfolio_recommender/results/
+cd explainable_agent
+python agent.py
 ```
 
 ## 未来展望
